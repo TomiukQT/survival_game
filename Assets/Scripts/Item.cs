@@ -9,4 +9,7 @@ public class Item : IStorable
 
     public bool IsStackable => _stackable;
     public int Count => _count;
+
+    public string Name => "name";
+    public string Description => "description";
 }

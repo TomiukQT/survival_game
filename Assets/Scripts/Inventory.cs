@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
+
+
 public class Inventory
 {
     private List<IStorable> _items;
     private Dictionary<string, int> _itemsStackSize;
+
+    public event EventHandler OnItemChanged;
     
     private int _capacity;
+    private int _itemsCount = 0;
 
     private readonly int DEFAULT_STACK_SIZE;
     
@@ -39,11 +44,21 @@ public class Inventory
         return false;
     }
 
+    public bool RemoveItem(IStorable item, int count)
+    {
+        return false;
+    }
+
     public IStorable GetItem(int index)
     {
         if (index < 0 || index >= _capacity)
             throw new IndexOutOfRangeException();
         return _items[index];
+    }
+
+    public void ChangeCapacity(int delta)
+    {
+        
     }
     
     
