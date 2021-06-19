@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Inventory
 {
-    private IStorable[] _items;
+    private Item[] _items;
     private Dictionary<string, int> _itemsStackSize;
 
     public event EventHandler OnItemChanged;
@@ -24,7 +24,7 @@ public class Inventory
     {
 
 
-        _items = new IStorable[capacity];
+        _items = new Item[capacity];
         _itemsStackSize = stackSizes;
         DEFAULT_STACK_SIZE = defaultStackSize;
     }
@@ -34,7 +34,7 @@ public class Inventory
     /// </summary>
     /// <param name="item">Item to add</param>
     /// <returns>True if adding was succesful, false if not.</returns>
-    public bool AddItem(IStorable item)
+    public bool AddItem(Item item)
     {
         if (item == null)
             throw new ArgumentException();
@@ -51,22 +51,22 @@ public class Inventory
         return false;
     }
 
-    private int GetItemMaxStack(IStorable item)
+    private int GetItemMaxStack(Item item)
     {
         return 1;
     }
 
-    public bool RemoveItem(IStorable item)
+    public bool RemoveItem(Item item)
     {
         return false;
     }
 
-    public bool RemoveItem(IStorable item, int count)
+    public bool RemoveItem(Item item, int count)
     {
         return false;
     }
 
-    public IStorable GetItem(int index)
+    public Item GetItem(int index)
     {
         if (index < 0 || index >= _capacity)
             throw new IndexOutOfRangeException();
