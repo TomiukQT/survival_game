@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class Item : ScriptableObject
     [SerializeField] private bool _stackable = false;
     [SerializeField] private int _count = 1;
 
+    ///TODO
+    //Icon
+    //Rarity?
+    //GameModel
+    
     public bool IsStackable => _stackable;
     public int Count
     {
@@ -20,6 +26,7 @@ public class Item : ScriptableObject
     public string Name => _name;
     public string Description => _description;
     
+    //For testing only.
     public Item(string n, bool stack, int count = 1)
     {
         _name = n;
