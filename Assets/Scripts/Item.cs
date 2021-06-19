@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+[CreateAssetMenu(fileName = "Item", menuName = "Items")]
+public class Item : ScriptableObject
 {
-    private string _name;
-    private bool _stackable = false;
-    private int _count = 1;
+    
+    [SerializeField] private string _name;
+    [SerializeField] private string _description;
+    [SerializeField] private bool _stackable = false;
+    [SerializeField] private int _count = 1;
 
     public bool IsStackable => _stackable;
-    public int Count => _count;
-
+    public int Count
+    {
+        get => _count;
+        set => value;
+    }
     public string Name => _name;
-    public string Description => "description";
+    public string Description => _description;
     
-    public Item(string n, bool stack, int count = 1)
+    private Item(string n, bool stack, int count = 1)
     {
         _name = n;
         _stackable = stack;
