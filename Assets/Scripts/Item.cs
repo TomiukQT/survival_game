@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "Items")]
+[CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class Item : ScriptableObject
 {
     
@@ -15,12 +15,12 @@ public class Item : ScriptableObject
     public int Count
     {
         get => _count;
-        set => value;
+        set => _count = value;
     }
     public string Name => _name;
     public string Description => _description;
     
-    private Item(string n, bool stack, int count = 1)
+    public Item(string n, bool stack, int count = 1)
     {
         _name = n;
         _stackable = stack;
