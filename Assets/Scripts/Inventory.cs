@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Inventory
 {
-    private List<IStorable> _items;
+    private IStorable[] _items;
     private Dictionary<string, int> _itemsStackSize;
 
     public event EventHandler OnItemChanged;
@@ -22,15 +22,32 @@ public class Inventory
     public Inventory(int capacity, int defaultStackSize) : this(capacity, new Dictionary<string, int>(),defaultStackSize) { }
     public Inventory(int capacity, Dictionary<string, int> stackSizes, int defaultStackSize = 100)
     {
-        
-        
-        _items = new List<IStorable>();
+
+
+        _items = new IStorable[capacity];
         _itemsStackSize = stackSizes;
         DEFAULT_STACK_SIZE = defaultStackSize;
     }
 
+    /// <summary>
+    /// Add item to invenotory. 
+    /// </summary>
+    /// <param name="item">Item to add</param>
+    /// <returns>True if adding was succesful, false if not.</returns>
     public bool AddItem(IStorable item)
     {
+        if (item == null)
+            throw new ArgumentException();
+        if (item.IsStackable)
+            //find same item.
+            foreach (var slot in _items)
+                if (slot.Name == item.Name)
+                {
+                    slot.Count += item.Count;
+                    return true;
+                }
+
+        
         return false;
     }
 
@@ -60,7 +77,9 @@ public class Inventory
     {
         
     }
-    
-    
+
+    public int Capacity => _capacity;
+
+
 
 }
