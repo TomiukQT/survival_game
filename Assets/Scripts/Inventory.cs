@@ -43,11 +43,30 @@ public class Inventory
             foreach (var slot in _items)
                 if (slot.Name == item.Name)
                 {
-                    slot.Count += item.Count;
-                    return true;
+                    int maxStack = DEFAULT_STACK_SIZE;
+                    //check if special stack size exists
+                    if (_itemsStackSize.ContainsKey(item.Name))
+                        maxStack = _itemsStackSize[item.Name];
+                    int canAdd = maxStack - slot.Count;
+                    int toAdd = Mathf.Min(canAdd, item.Count);
+                    
+                    slot.Count += toAdd;
+                    item.Count -= toAdd;
+                    if(toAdd > 0)
+                        OnItemChanged?.Invoke(this,new EventArgs());
+                    if(item.Count <= 0)
+                        return true;
                 }
 
-        
+        for (int i = 0; i < _capacity; i++)
+        {
+            if (_items[i] == null)
+            {
+                _items[i] = item;
+                OnItemChanged?.Invoke(this,new EventArgs());
+                return true;
+            }
+        }
         return false;
     }
 
