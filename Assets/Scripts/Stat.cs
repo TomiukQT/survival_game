@@ -9,7 +9,7 @@ public class Stat
     private int _value;
     //private int _initialValue;
     
-    public Stat(int value, string name = "defautlName")
+    public Stat(int value, string name = "defaultName")
     {
         _value = value;
         
