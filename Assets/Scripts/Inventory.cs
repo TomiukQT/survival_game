@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-
-
 public class Inventory
 {
-    private Item[] _items;
+    private List<ItemSlot> _itemSlots;
     private Dictionary<string, int> _itemsStackSize;
 
     public event EventHandler OnItemChanged;
@@ -24,45 +22,53 @@ public class Inventory
     {
 
 
-        _items = new Item[capacity];
+        _itemSlots = new List<ItemSlot>();
+        Init(capacity);
         _itemsStackSize = stackSizes;
         DEFAULT_STACK_SIZE = defaultStackSize;
     }
 
+    private void Init(int capacity)
+    {
+        for (int i = 0; i < capacity; i++)
+            _itemSlots.Add(new ItemSlot());
+    }
+    
+    
     /// <summary>
     /// Add item to invenotory. 
     /// </summary>
     /// <param name="item">Item to add</param>
     /// <returns>True if adding was succesful, false if not.</returns>
-    public bool AddItem(Item item)
+    public bool AddItem(Item item, int count = 1)
     {
         if (item == null)
             throw new ArgumentException();
         if (item.IsStackable)
             //find same item.
-            foreach (var slot in _items)
-                if (slot.Name == item.Name)
+            foreach (var slot in _itemSlots)
+                if (slot.item.Name == item.Name)
                 {
                     int maxStack = DEFAULT_STACK_SIZE;
                     //check if special stack size exists
                     if (_itemsStackSize.ContainsKey(item.Name))
                         maxStack = _itemsStackSize[item.Name];
-                    int canAdd = maxStack - slot.Count;
-                    int toAdd = Mathf.Min(canAdd, item.Count);
+                    int canAdd = maxStack - slot.count;
+                    int toAdd = Mathf.Min(canAdd, count);
                     
-                    slot.Count += toAdd;
-                    item.Count -= toAdd;
+                    slot.count += toAdd;
+                    count -= toAdd;
                     if(toAdd > 0)
                         OnItemChanged?.Invoke(this,new EventArgs());
-                    if(item.Count <= 0)
+                    if(count <= 0)
                         return true;
                 }
 
         for (int i = 0; i < _capacity; i++)
         {
-            if (_items[i] == null)
+            if (_itemSlots[i].item == null)
             {
-                _items[i] = item;
+                _itemSlots[i].item = item;
                 OnItemChanged?.Invoke(this,new EventArgs());
                 return true;
             }
@@ -89,12 +95,13 @@ public class Inventory
     {
         if (index < 0 || index >= _capacity)
             throw new IndexOutOfRangeException();
-        return _items[index];
+        return _itemSlots[index].item;
     }
 
     public void ChangeCapacity(int delta)
     {
-        
+        if (_capacity + delta <= 0)
+            throw new ArgumentException();
     }
 
     public int Capacity => _capacity;

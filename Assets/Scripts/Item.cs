@@ -3,14 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ItemType
+{
+    
+}
+
 [CreateAssetMenu(fileName = "Item", menuName = "Item")]
 public class Item : ScriptableObject
 {
     
     [SerializeField] private string _name;
+    [TextArea(15,20)]
     [SerializeField] private string _description;
     [SerializeField] private bool _stackable = false;
-    [SerializeField] private int _count = 1;
 
     ///TODO
     //Icon
@@ -18,19 +23,13 @@ public class Item : ScriptableObject
     //GameModel
     
     public bool IsStackable => _stackable;
-    public int Count
-    {
-        get => _count;
-        set => _count = value;
-    }
     public string Name => _name;
     public string Description => _description;
     
     //For testing only.
-    public Item(string n, bool stack, int count = 1)
+    public Item(string n, bool stack)
     {
         _name = n;
         _stackable = stack;
-        _count = count;
     }
 }
