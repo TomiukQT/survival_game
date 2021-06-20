@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [System.Serializable]
@@ -33,11 +34,15 @@ public class Stat
     {
         if(newValue < 0 || time < 0f)
             return;
+        ChangeStatOnTime(newValue, time);
     }
 
-    private IEnumerator ChangeStatOnTime(int newValue, float time)
+    private async Task ChangeStatOnTime(int newValue, float time)
     {
-        yield return new WaitForSeconds(time);
+        int oldValue = _value;
+        _value = newValue;
+        await Task.Delay((int)time * 1000);
+        _value = oldValue;
     }
 
     public int Value => _value;
