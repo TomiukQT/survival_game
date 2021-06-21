@@ -81,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint()
     {
+        if (!_isGrounded)
+                return;
         _oldSpeed = _speed;
         _isSprinting = true;
     }
