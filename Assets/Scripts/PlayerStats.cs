@@ -6,12 +6,8 @@ public class OnLevelUpEventArgs : EventArgs
     public int newLvl;
 }
 
-
 public class PlayerStats : MonoBehaviour
 {
-
-    private Resource _health = new Resource(100f, "Health");
-    private Resource _mana = new Resource(100f, "Mana");
 
     private Stat _stamina = new Stat(10, "Stamina");
     private Stat _intellect = new Stat(10, "Intellect");
