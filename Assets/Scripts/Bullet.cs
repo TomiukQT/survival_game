@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    
     private Vector3 _direction;
-    private float _speed;
+    [SerializeField] private float _speed;
 
-    public void Setup(Vector3 dir, float speed)
+    public void Setup(Vector3 dir)
     {
-        
+        _direction = dir;
     }
 
     private void Update()
     {
-        //TODO: MOVEMENT
+        Move();
+    }
+
+    private void Move()
+    {
+        transform.position += _direction * (_speed * Time.deltaTime);
     }
 
 }

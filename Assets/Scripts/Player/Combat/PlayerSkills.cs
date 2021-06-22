@@ -4,12 +4,12 @@ public class PlayerSkills : MonoBehaviour
 {
 
     //TEMP
-    [SerializeField] private GameObject _bulletPrefab;
-    
+    //[SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Skill _tempSkill;
 
     public GameObject GetSkillProjectile()
     {
-        return _bulletPrefab;
+        return _tempSkill._projectile;
     }
     
 }
