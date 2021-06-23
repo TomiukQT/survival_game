@@ -9,7 +9,7 @@ public class PlayerSkills : MonoBehaviour
 
     public GameObject GetSkillProjectile()
     {
-        return _tempSkill._projectile;
+        return _tempSkill.ToSpawn;
     }
     
 }

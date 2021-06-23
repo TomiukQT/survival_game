@@ -32,20 +32,22 @@ public class Player : MonoBehaviour,IDamagable
         _playerMovement.ChangeSpeed(percentage);
     }
 
-    public void Stun()
+    public void Stun(float duration)
     {
-        _playerMovement.Stun(1f);
+        _playerMovement.Stun(duration);
     }
 
-    public void ApplyDOT(float amount)
+    public void ApplyDOT(float amount,float duration)
     {
-        
+        StartCoroutine(DamageOverTime(amount, duration));
     }
 
-    public IEnumerable DOT(float amount)
+    public IEnumerator DamageOverTime(float amount, float duration)
     {
-        TakeDamage(amount);
-        yield return new WaitForSeconds(1f);
-        TakeDamage(amount);
+        for (int i = 0; i < Mathf.FloorToInt(duration); i++)
+        {
+            yield return new WaitForSeconds(1f);
+            TakeDamage(amount);
+        }
     }
 }
