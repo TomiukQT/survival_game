@@ -447,6 +447,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 22177639070885860, guid: 80447b88f52f3a649bfbd22bf80738a6, type: 3}
+      propertyPath: _tempSkill
+      value: 
+      objectReference: {fileID: 11400000, guid: 7c0ea4a6961ca9b4abd7952df29874b0, type: 2}
     - target: {fileID: 5439291575471539628, guid: 80447b88f52f3a649bfbd22bf80738a6, type: 3}
       propertyPath: m_Name
       value: player
