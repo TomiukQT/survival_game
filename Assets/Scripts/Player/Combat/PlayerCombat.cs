@@ -19,6 +19,8 @@ public class PlayerCombat : MonoBehaviour
     private PlayerSkills _playerSkills;
 
     private Transform _attackPoint;
+
+    private Camera _camera;
     
     private void Awake()
     {
@@ -27,6 +29,8 @@ public class PlayerCombat : MonoBehaviour
 
         _playerSkills = GetComponent<PlayerSkills>();
 
+        _camera = transform.Find("player_camera").GetComponent<Camera>();
+
     }
 
     private void Update()
@@ -34,16 +38,29 @@ public class PlayerCombat : MonoBehaviour
         CheckInput();
     }
 
-    private void Shoot()
+    private void UseSpell()
     {
-        //get projectile
-        GameObject projectile = _playerSkills.GetSkillProjectile();
-        //get type of shooting
+        Spell toCast = _playerSkills.GetSpell();
+       
         //get cost and try to take resources
+        
+        
+        //Calculate direction
+        Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit))
+            targetPoint = hit.point;
+        else
+            targetPoint = ray.GetPoint(100);
+
+        Vector3 direction = (targetPoint - _attackPoint.position).normalized;
+
+        //get type of shooting
+
         //shoot projectile
-        Vector3 direction = CalculateDirection();
-        GameObject bullet = Instantiate(projectile, _attackPoint.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().Setup(direction);
+
     }
 
     private Vector3 CalculateDirection()
@@ -54,7 +71,7 @@ public class PlayerCombat : MonoBehaviour
     private void CheckInput()
     {
         if(Input.GetKeyDown("Fire!"))
-            Shoot();
+            UseSpell();
         
     }
     

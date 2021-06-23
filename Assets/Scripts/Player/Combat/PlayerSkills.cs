@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerSkills : MonoBehaviour
 {
 
     //TEMP
     //[SerializeField] private GameObject _bulletPrefab;
-    [SerializeField] private Skill _tempSkill;
+    [SerializeField] private Spell _tempSpell;
 
-    public GameObject GetSkillProjectile()
+    public Spell GetSpell()
     {
-        return _tempSkill.ToSpawn;
+        return _tempSpell;
     }
     
 }

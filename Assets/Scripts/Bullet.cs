@@ -8,10 +8,13 @@ public class Bullet : MonoBehaviour
     
     private Vector3 _direction;
     [SerializeField] private float _speed;
+    [SerializeField] private float _damage;
 
-    public void Setup(Vector3 dir)
+    public void Setup(Vector3 dir, float damage, float speed = 10f)
     {
         _direction = dir;
+        _damage = damage;
+        _speed = speed;
     }
 
     private void Update()
