@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool _isGrounded;
     private bool _isSprinting;
+    private bool _isStunned = false;
     
     private CharacterController _characterController;
 
@@ -33,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         ApplyGravity();
+        if (_isStunned)
+            return;
         Movement();
         CheckInput();
     }
@@ -91,6 +94,25 @@ public class PlayerMovement : MonoBehaviour
     {
         _speed = _oldSpeed;
         _isSprinting = false;
+    }
+
+    public IEnumerable ChangeSpeed(float pertentage, float duration = 1f)
+    {
+        float old = _speed;
+        if (_isSprinting)
+            old = _oldSpeed;
+        _speed = _speed * pertentage;
+        yield return new WaitForSeconds(duration);
+        _speed = old;
+    }
+
+    public IEnumerable Stun(float duration)
+    {
+        _isStunned = true;
+        //PlayAnim;
+        yield return new WaitForSeconds(duration);
+        _isStunned = false;
+
     }
     
 }

@@ -14,7 +14,7 @@ public enum ShootingMode
 public class PlayerCombat : MonoBehaviour
 {
     private PlayerStats _playerStats;
-    private PlayerResources _playerResources;
+    private Player _player;
 
     private PlayerSkills _playerSkills;
 
@@ -23,7 +23,7 @@ public class PlayerCombat : MonoBehaviour
     private void Awake()
     {
         _playerStats = GetComponent<PlayerStats>();
-        _playerResources = GetComponent<PlayerResources>();
+        _player = GetComponent<Player>();
 
         _playerSkills = GetComponent<PlayerSkills>();
 
