@@ -43,9 +43,21 @@ public class PlayerCombat : MonoBehaviour
         Spell toCast = _playerSkills.GetSpell();
        
         //get cost and try to take resources
+        if (!_player.Mana.TryTake(toCast.ManaCost))
+            return;
         
         
         //Calculate direction
+        Vector3 direction = CalculateDirection();
+
+        //get type of shooting
+        toCast.Cast(_attackPoint.position,direction);
+        //shoot projectile
+        
+    }
+
+    private Vector3 CalculateDirection()
+    {
         Ray ray = _camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
 
@@ -56,16 +68,7 @@ public class PlayerCombat : MonoBehaviour
             targetPoint = ray.GetPoint(100);
 
         Vector3 direction = (targetPoint - _attackPoint.position).normalized;
-
-        //get type of shooting
-        toCast.Cast(_attackPoint.position,direction);
-        //shoot projectile
-        
-    }
-
-    private Vector3 CalculateDirection()
-    {
-        return new Vector3(1, 0, 0);
+        return direction;
     }
     
     private void CheckInput()

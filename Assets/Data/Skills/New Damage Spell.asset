@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: sda
   Description: adasd
-  ManaCost: 0
+  ManaCost: 1
   Cooldown: 0
   CastingMode: 0
   Damage: 0
