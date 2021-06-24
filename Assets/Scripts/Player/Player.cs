@@ -50,4 +50,9 @@ public class Player : MonoBehaviour,IDamagable
             TakeDamage(amount);
         }
     }
+    
+    //Getters
+    public Resource Health => _health;
+    public Resource Mana => _mana;
+
 }

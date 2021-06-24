@@ -84,6 +84,7 @@ public class Resource
     public float MaxValue => _maxValue;
     public float Value => _value;
     public float Percentage => (_value / _maxValue) * 100;
+    public float Percentage01 => (_value / _maxValue);
     public string Name => _name;
 
 
