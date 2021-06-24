@@ -10,11 +10,15 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
 
+    private readonly float BULLET_LIFETIME = 5f;
+    
     public void Setup(Vector3 dir, float damage, float speed = 10f)
     {
         _direction = dir;
         _damage = damage;
         _speed = speed;
+        
+        Destroy(gameObject,BULLET_LIFETIME);
     }
 
     private void Update()

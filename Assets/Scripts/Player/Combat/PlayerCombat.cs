@@ -18,7 +18,7 @@ public class PlayerCombat : MonoBehaviour
 
     private PlayerSkills _playerSkills;
 
-    private Transform _attackPoint;
+    [SerializeField] private Transform _attackPoint;
 
     private Camera _camera;
     
@@ -58,9 +58,9 @@ public class PlayerCombat : MonoBehaviour
         Vector3 direction = (targetPoint - _attackPoint.position).normalized;
 
         //get type of shooting
-
+        toCast.Cast(_attackPoint.position,direction);
         //shoot projectile
-
+        
     }
 
     private Vector3 CalculateDirection()
@@ -70,7 +70,7 @@ public class PlayerCombat : MonoBehaviour
     
     private void CheckInput()
     {
-        if(Input.GetKeyDown("Fire!"))
+        if(Input.GetButtonDown("Fire1"))
             UseSpell();
         
     }

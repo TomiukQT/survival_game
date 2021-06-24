@@ -14,7 +14,7 @@ public enum CastingMode
     Holding
 }
 
-[CreateAssetMenu(fileName = "New Spell", menuName = "Skills/BasicSpell")]
+[CreateAssetMenu(fileName = "New Spell", menuName = "Spells/BasicSpell")]
 public abstract class Spell : ScriptableObject
 {
 
