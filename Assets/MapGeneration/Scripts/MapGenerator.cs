@@ -14,7 +14,7 @@ public struct TerrainType
 
 public class MapGenerator : MonoBehaviour
 {
-    public enum DrawMode {NoiseMap, ColorMap};
+    public enum DrawMode {NoiseMap, ColorMap, Mesh};
     public DrawMode drawMode;
     
     public int mapWidth;
@@ -56,6 +56,8 @@ public class MapGenerator : MonoBehaviour
             mapDisplay.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
         else if(drawMode == DrawMode.ColorMap)
             mapDisplay.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap,mapWidth,mapHeight));
+        else if(drawMode == DrawMode.Mesh)
+            mapDisplay.DrawMesh(MeshGenerator.GenarateTerrainMesh(noiseMap),TextureGenerator.TextureFromColorMap(colorMap,mapWidth,mapHeight));
             
     }
 
