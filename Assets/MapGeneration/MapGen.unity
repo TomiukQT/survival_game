@@ -153,9 +153,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e76baab632038a469e948dfa4b456c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 10
-  mapHeight: 10
-  noiseScale: 0.5
+  mapWidth: 135
+  mapHeight: 79
+  noiseScale: 22.76
+  octaves: 4
+  persistance: 0.503
+  lacunarity: 1.98
+  seed: 1234224696
+  offset: {x: -21.93, y: -16.1}
+  terrainTypes:
+  - name: Water
+    height: 0.4
+    color: {r: 0.19406372, g: 0.35324404, b: 0.8396226, a: 0}
+  - name: Land
+    height: 1
+    color: {r: 0.13824506, g: 0.38679248, b: 0.0748042, a: 0}
 --- !u!4 &1169840108
 Transform:
   m_ObjectHideFlags: 0
@@ -275,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 1760896245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 135, y: 1, z: 79}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
