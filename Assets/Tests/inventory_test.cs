@@ -46,15 +46,15 @@ public class inventory_test
         //customer.NameChanged += (sender, e) => { eventRaised = true; };
         inventory.OnItemChanged += (sender, e) => { eventsCallCount++; };
         
-        Assert.Equals(0, eventsCallCount);
+        Assert.AreEqual(0, eventsCallCount);
         inventory.AddItem(i1);
-        Assert.Equals(1, eventsCallCount);
+        Assert.AreEqual(1, eventsCallCount);
         inventory.RemoveItem(i1);
-        Assert.Equals(2, eventsCallCount);
+        Assert.AreEqual(2, eventsCallCount);
         inventory.AddItem(i1);
-        Assert.Equals(3, eventsCallCount);
+        Assert.AreEqual(3, eventsCallCount);
         inventory.RemoveItem(i2);
-        Assert.Equals(3, eventsCallCount);
+        Assert.AreEqual(3, eventsCallCount);
     }
 
     [Test]
@@ -83,8 +83,9 @@ public class inventory_test
         inventory.AddItem(i2);
         inventory.ChangeCapacity(-9);
 
-        Assert.Equals(i1, inventory.GetItem(0));
-        Assert.Throws<ArgumentOutOfRangeException>(()=>inventory.GetItem(1));
+        Assert.AreEqual(i1, inventory.GetItem(0));
+        Assert.AreEqual(1, inventory.Capacity);
+        Assert.Throws<IndexOutOfRangeException>(()=>inventory.GetItem(1));
     }
 
     [Test]

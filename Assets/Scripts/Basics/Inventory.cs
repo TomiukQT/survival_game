@@ -23,6 +23,7 @@ public class Inventory
 
 
         _itemSlots = new List<ItemSlot>();
+        _capacity = capacity;
         Init(capacity);
         _itemsStackSize = stackSizes;
         DEFAULT_STACK_SIZE = defaultStackSize;
@@ -102,6 +103,15 @@ public class Inventory
     {
         if (_capacity + delta <= 0)
             throw new ArgumentException();
+        _capacity += delta;
+        if(delta > 0)
+            for (int i = 0; i < delta; i++)
+                _itemSlots.Add(new ItemSlot());
+        else if (delta < 0)
+        {
+            //TODO : Items shrinkink.
+            _itemSlots.RemoveRange(_itemSlots.Count + delta,-delta);
+        }
     }
 
     public int Capacity => _capacity;

@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   icon: {fileID: 0}
-  slots: []
+  slots:
+  - Spell: {fileID: 0}
+    Dependencies: []
+    CostToUnlock: 0
+    IsUnlocked: 0
