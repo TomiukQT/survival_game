@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class SkillTreeSlot
+public struct SkillTreeSlot
 {
     public Spell Spell;
     public List<Spell> Dependencies;
-    public int CostToUnlock = 0;
+    public int CostToUnlock;
+    public bool IsUnlocked;
 }
 
 [CreateAssetMenu(fileName = "New Skill Tree", menuName = "Skill Tree")]
