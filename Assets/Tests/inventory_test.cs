@@ -49,11 +49,11 @@ public class inventory_test
         Assert.AreEqual(0, eventsCallCount);
         inventory.AddItem(i1);
         Assert.AreEqual(1, eventsCallCount);
-        inventory.RemoveItem(i1);
+        inventory.RemoveItem(0);
         Assert.AreEqual(2, eventsCallCount);
         inventory.AddItem(i1);
         Assert.AreEqual(3, eventsCallCount);
-        inventory.RemoveItem(i2);
+        inventory.RemoveItem(2);
         Assert.AreEqual(3, eventsCallCount);
     }
 
@@ -103,8 +103,8 @@ public class inventory_test
 
         inventory.AddItem(i1);
 
-        bool r1 = inventory.RemoveItem(i1);
-        bool r2 = inventory.RemoveItem(i2);
+        bool r1 = inventory.RemoveItem(0);
+        bool r2 = inventory.RemoveItem(11);
         
         Assert.True(r1);
         Assert.False(r2);
@@ -121,7 +121,7 @@ public class inventory_test
     [Test]
     public void add_stackable_item()
     {
-        Inventory inventory = new Inventory(1, 999);
+        Inventory inventory = new Inventory(2, 999);
 
         bool a1 = inventory.AddItem(s1);
         bool a2 = inventory.AddItem(s1);
@@ -129,7 +129,7 @@ public class inventory_test
         bool a4 = inventory.AddItem(s3);
         
         Assert.True(a1);
-        Assert.Equals(2, 2);
+        Assert.AreEqual(2, 2);
         Assert.True(a2);
         Assert.True(a3);
         Assert.False(a4);

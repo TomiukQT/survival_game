@@ -48,7 +48,7 @@ public class Inventory
         if (item.IsStackable)
             //find same item.
             foreach (var slot in _itemSlots)
-                if (slot.item.Name == item.Name)
+                if (slot.item != null && slot.item.Name == item.Name)
                 {
                     int maxStack = DEFAULT_STACK_SIZE;
                     //check if special stack size exists
@@ -82,10 +82,18 @@ public class Inventory
         return 1;
     }
 
-    public bool RemoveItem(Item item)
+    public bool RemoveItem(int index)
     {
-        return false;
+        if (index < 0 || index >= _capacity)
+            return false;
+        if (_itemSlots[index].item == null)
+            return false;
+        _itemSlots[index].item = null;
+        OnItemChanged?.Invoke(this,new EventArgs());
+        return true;
     }
+    
+    
 
     public bool RemoveItem(Item item, int count)
     {
