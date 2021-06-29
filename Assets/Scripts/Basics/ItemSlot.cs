@@ -1,4 +1,5 @@
-﻿public class ItemSlot
+﻿[System.Serializable]
+public class ItemSlot
 {
     public Item item;
     public int count;

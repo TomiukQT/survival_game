@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
+[System.Serializable]
 public class Inventory
 {
-    private List<ItemSlot> _itemSlots;
+    [SerializeField] private List<ItemSlot> _itemSlots;
     private Dictionary<string, int> _itemsStackSize;
 
     public event EventHandler OnItemChanged;
@@ -70,6 +71,7 @@ public class Inventory
             if (_itemSlots[i].item == null)
             {
                 _itemSlots[i].item = item;
+                _itemSlots[i].count = count;
                 OnItemChanged?.Invoke(this,new EventArgs());
                 return true;
             }
