@@ -43,6 +43,8 @@ public class UI_SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         GameObject icon = transform.Find("icon").gameObject;
         _movingIcon = Instantiate(icon, gameObject.GetComponent<RectTransform>().position, Quaternion.identity,transform.parent).GetComponent<RectTransform>();
+        _movingIcon.gameObject.AddComponent<SpellContainer>().SetSpell(_spell);        
+        
         _movingIconCanvasGroup = _movingIcon.gameObject.AddComponent<CanvasGroup>();
         _movingIconCanvasGroup.alpha = 0.6f;
         _movingIconCanvasGroup.blocksRaycasts = false;

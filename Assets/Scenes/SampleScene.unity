@@ -496,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 353478318}
   - component: {fileID: 353478319}
+  - component: {fileID: 353478320}
   m_Layer: 5
   m_Name: skill_bar
   m_TagString: Untagged
@@ -552,6 +553,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &353478320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353478317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9c93eb9a5683744abe271aca099452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &686759384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1441,6 +1454,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2107811145}
+    - target: {fileID: 822679777341614438, guid: 002eb30d1166f9341b2c91b350de3ee7, type: 3}
+      propertyPath: _spell
+      value: 
+      objectReference: {fileID: 11400000, guid: 01029572a4c0aa84cae0cc1585521fa1, type: 2}
     - target: {fileID: 1570805769748253642, guid: 002eb30d1166f9341b2c91b350de3ee7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
