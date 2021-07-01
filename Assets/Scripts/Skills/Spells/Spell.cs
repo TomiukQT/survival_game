@@ -21,6 +21,9 @@ public abstract class Spell : ScriptableObject
     public string Name;
     [TextArea(15,20)]
     public string Description;
+
+    public Sprite Icon;
+    
     public float ManaCost;
     public float Cooldown;
     public CastingMode CastingMode;
