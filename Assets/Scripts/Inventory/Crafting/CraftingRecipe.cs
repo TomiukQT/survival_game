@@ -7,6 +7,7 @@ public class CraftingRecipe : ScriptableObject
 {
     public List<Ingredient> Ingredients;
     public Item Result;
+    public int ResultCount = 1;
 
 }
 

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 783aa8c7e4898b845b8f278731dbeafb, type: 3}
-  m_Name: testing recipe
+  m_Name: Testing Crafting Recipe 1
   m_EditorClassIdentifier: 
   Ingredients:
-  - Item: {fileID: 11400000, guid: 48eca82241d5c9046989d335a6aa706e, type: 2}
-    Count: 2
-  Result: {fileID: 11400000, guid: 48eca82241d5c9046989d335a6aa706e, type: 2}
+  - Item: {fileID: 11400000, guid: 627b285879c09d44aa9ef2f26116c419, type: 2}
+    Count: 1
+  Result: {fileID: 11400000, guid: 16cffddd08afe0c44ae4cf5dc2b10bf7, type: 2}
+  ResultCount: 2

@@ -10,19 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb466ed8e9c7f4a419c8e07f5055b50e, type: 3}
-  m_Name: Item
+  m_Name: Testing Item 3
   m_EditorClassIdentifier: 
-  _name: Testing Item
-  _description: 'asd asdasdasdasdasdasdasdasd
-
-    asdasda
-
-    sda
-
-    sd
-
-    asd
-
-    asd'
-  _icon: {fileID: 21300044, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
-  _stackable: 0
+  _name: Testing Item 3
+  _description: This is Testing Item 3
+  _icon: {fileID: 21300046, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
+  _stackable: 1

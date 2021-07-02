@@ -17,5 +17,12 @@ public static class Utils
             n += 360;
         return n;
     }
+
+    public static void RemoveAllChilds(Transform parent)
+    {
+        foreach (Transform child in parent)
+            GameObject.Destroy(child.gameObject);
+        
+    }
     
 }

@@ -123,6 +123,28 @@ public class Inventory
 
         return count;
     }
+
+    public bool IsSpace(Item item)
+    {
+        if (item == null)
+            return false;
+        
+        foreach (var slot in _itemSlots)
+        {
+            if (item.IsStackable)
+            {
+                if (slot.item == null || slot.item == item)
+                    return true;
+            }
+            else
+            {
+                if (slot.item == null)
+                    return true;
+            }
+        }
+
+        return false;
+    }
     
     public void ChangeCapacity(int delta)
     {

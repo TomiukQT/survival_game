@@ -54,7 +54,7 @@ public class CraftingSystem : Singleton<CraftingSystem>
         return count;
     }
     
-    public IEnumerator<CraftingRecipe> GetAvailableRecipes(Inventory inventory)
+    public IEnumerable<CraftingRecipe> GetAvailableRecipes(Inventory inventory)
     {
         List<CraftingRecipe> recipes = new List<CraftingRecipe>();
         foreach (var recipe in _recipes)
@@ -62,7 +62,28 @@ public class CraftingSystem : Singleton<CraftingSystem>
             if(CanCraftRecipe(recipe,inventory))
                 recipes.Add(recipe);
         }
-        
-        return recipes.GetEnumerator();
+
+        return recipes;
     }
+
+    //Maybe return string and show tooltip ???
+    public string Craft(CraftingRecipe recipe, Inventory inventory)
+    {
+        if (recipe == null || inventory == null)
+            return "NullReference";
+        if (!CanCraftRecipe(recipe, inventory))
+            return "Not Enough Resources";
+        if(!inventory.IsSpace(recipe.Result))
+            return "Not Enough Space in Inventory";
+
+        foreach (var ingredient in recipe.Ingredients)
+            inventory.RemoveItem(ingredient.Item, ingredient.Count);
+        
+        inventory.AddItem(recipe.Result, recipe.ResultCount);
+        
+        return $"Item {recipe.Result.Name} crafted";
+    }
+    
+    
+    
 }
