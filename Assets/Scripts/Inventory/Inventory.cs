@@ -102,6 +102,21 @@ public class Inventory
 
     public bool RemoveItem(Item item, int count)
     {
+        int toRemove = count;
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.item == item)
+            {
+                int toBeRemoved = Mathf.Min(toRemove, slot.count);
+                slot.count -= toBeRemoved;
+                if (slot.count <= 0)
+                    slot.Reset();
+                toRemove -= toBeRemoved;
+            }
+
+            if (toRemove == 0)
+                return true;
+        }
         return false;
     }
 
@@ -109,6 +124,14 @@ public class Inventory
     {
         if (index < 0 || index >= _capacity)
             throw new IndexOutOfRangeException();
+        return _itemSlots[index].item;
+    }
+    
+    public Item GetItemWithCount(int index, out int count)
+    {
+        if (index < 0 || index >= _capacity)
+            throw new IndexOutOfRangeException();
+        count = _itemSlots[index].count;
         return _itemSlots[index].item;
     }
 
