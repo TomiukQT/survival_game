@@ -25,4 +25,6 @@ public class PlayerItems : MonoBehaviour
             }
         }
     }
+
+    public Inventory Inventory => _inventory;
 }
