@@ -8,7 +8,7 @@ public enum ItemType
     
 }
 
-[CreateAssetMenu(fileName = "Item", menuName = "Item")]
+[CreateAssetMenu(fileName = "Item", menuName = "Items/Item")]
 public class Item : ScriptableObject
 {
     
@@ -31,6 +31,7 @@ public class Item : ScriptableObject
     public Sprite Icon => _icon;
     
     //For testing only.
+    public Item(){}
     public Item(string n, bool stack)
     {
         _name = n;
