@@ -44,7 +44,7 @@ public class UI_Inventory : MonoBehaviour,IShowable
 
     private void UpdateInventory()
     {
-        Debug.Log("Updating");
+        //Debug.Log("Updating");
         for (int i = 0; i < _inventory.Capacity; i++)
             _inventorySlots[i].SetItem(_inventory.GetItemWithCount(i, out int count),count);
         
@@ -52,7 +52,7 @@ public class UI_Inventory : MonoBehaviour,IShowable
     
     private void OnInventoryChange(object sender, EventArgs eventArgs)
     {
-        Debug.Log("Invoking");
+        //Debug.Log("Invoking");
         UpdateInventory();
     }
 
