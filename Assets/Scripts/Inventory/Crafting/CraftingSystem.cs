@@ -4,14 +4,16 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class CraftingSystem : Singleton<CraftingSystem>
+public class CraftingSystem : MonoBehaviour
 {
 
     [SerializeField] private List<CraftingRecipe> _recipes;
-    
 
+    public static CraftingSystem Instance;
+    
     private void Awake()
     {
+        Instance = this;
         CheckRecipesValidity();
     }
 

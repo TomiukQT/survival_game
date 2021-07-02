@@ -51,6 +51,7 @@ public class UI_Crafting : MonoBehaviour
         if (_chosenCraftingRecipe == null)
             return;
         CraftingSystem.Instance.Craft(_chosenCraftingRecipe, _inventory);
+        ShowAvailableRecipes();
     }
     
     

@@ -46,7 +46,7 @@ public class UI_Inventory : MonoBehaviour,IShowable
     {
         Debug.Log("Updating");
         for (int i = 0; i < _inventory.Capacity; i++)
-            _inventorySlots[i].SetItem(_inventory.GetItem(i));
+            _inventorySlots[i].SetItem(_inventory.GetItemWithCount(i, out int count),count);
         
     }
     
