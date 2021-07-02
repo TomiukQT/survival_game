@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Net.NetworkInformation;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [System.Serializable]
