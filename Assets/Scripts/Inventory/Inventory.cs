@@ -62,8 +62,11 @@ public class Inventory
                     count -= toAdd;
                     if(toAdd > 0)
                         OnItemChanged?.Invoke(this,new EventArgs());
-                    if(count <= 0)
+                    if (count <= 0)
+                    {
+                        OnItemChanged?.Invoke(this,new EventArgs());
                         return true;
+                    }
                 }
 
         for (int i = 0; i < _capacity; i++)

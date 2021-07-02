@@ -15,6 +15,9 @@ public class Item : ScriptableObject
     [SerializeField] private string _name;
     [TextArea(15,20)]
     [SerializeField] private string _description;
+
+    [SerializeField] private Sprite _icon;
+    
     [SerializeField] private bool _stackable = false;
 
     ///TODO
@@ -25,6 +28,7 @@ public class Item : ScriptableObject
     public bool IsStackable => _stackable;
     public string Name => _name;
     public string Description => _description;
+    public Sprite Icon => _icon;
     
     //For testing only.
     public Item(string n, bool stack)

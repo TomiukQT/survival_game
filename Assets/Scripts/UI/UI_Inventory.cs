@@ -11,17 +11,25 @@ public class UI_Inventory : MonoBehaviour,IShowable
     
     private List<UI_InventorySlot> _inventorySlots;
 
-    private GameObject _panel;
+    [SerializeField] private GameObject _panel;
+
+    private Vector3 _initialPosition;
     
     private void Awake()
     {
+        InitInventorySlots();
+
+        _initialPosition = transform.position;
+
+    }
+    
+
+    private void Start()
+    {
         _inventory = _playerItems.Inventory;
         _inventory.OnItemChanged += OnInventoryChange;
-
-        InitInventorySlots();
         
-            
-        _panel = transform.GetChild(0).gameObject;
+        UpdateInventory();
     }
 
     private void InitInventorySlots()
@@ -30,23 +38,35 @@ public class UI_Inventory : MonoBehaviour,IShowable
         Transform inventorySlotsParent = _panel.transform.Find("inventory_slots");
         for (int i = 0; i < inventorySlotsParent.childCount; i++)
         {
-            
+            _inventorySlots.Add(inventorySlotsParent.GetChild(i).GetComponent<UI_InventorySlot>());
         }
     }
 
-    private void UpdateInvetory()
+    private void UpdateInventory()
     {
+        Debug.Log("Updating");
+        for (int i = 0; i < _inventory.Capacity; i++)
+            _inventorySlots[i].SetItem(_inventory.GetItem(i));
         
     }
     
-    public void OnInventoryChange(object sender, EventArgs eventArgs)
+    private void OnInventoryChange(object sender, EventArgs eventArgs)
     {
+        Debug.Log("Invoking");
         UpdateInventory();
     }
-    
-    
-    
 
-    public void SetActive(bool state) => _panel.SetActive(state);
-    public void Toggle() => _panel.SetActive(!_panel.activeSelf);
+
+
+
+    public void SetActive(bool state)
+    {
+        if (!state)
+            transform.position = new Vector3(-10000, -10000, -10000);
+        else
+            transform.position = _initialPosition;
+    }
+
+    public void Toggle() => SetActive(!(transform.position == _initialPosition));
+
 }

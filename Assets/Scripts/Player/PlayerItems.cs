@@ -8,7 +8,7 @@ public class PlayerItems : MonoBehaviour
 {
 
     [SerializeField] [ReadOnly] private Inventory _inventory;
-    private const int INVENTORY_CAPACITY = 20;
+    private const int INVENTORY_CAPACITY = 21;
     
     private void Awake()
     {
