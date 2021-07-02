@@ -19,5 +19,10 @@ public class ItemSlot
             count = 1;
     }
 
+    public void Reset()
+    {
+        item = null;
+        count = 0;
+    }
 
 }
