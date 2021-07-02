@@ -34,7 +34,9 @@ public class Stat
     {
         if(newValue < 0 || time < 0f)
             return;
+#pragma warning disable 4014
         ChangeStatOnTime(newValue, time);
+#pragma warning restore 4014
     }
 
     private async Task ChangeStatOnTime(int newValue, float time)

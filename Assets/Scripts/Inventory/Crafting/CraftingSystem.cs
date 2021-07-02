@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class CraftingSystem : MonoBehaviour
+public class CraftingSystem : Singleton<CraftingSystem>
 {
 
     [SerializeField] private List<CraftingRecipe> _recipes;
-
+    
 
     private void Awake()
     {
@@ -30,5 +30,39 @@ public class CraftingSystem : MonoBehaviour
             }
 
         }
+    }
+
+    private bool CanCraftRecipe(CraftingRecipe recipe, Inventory inventory)
+    {
+        foreach (var ingredient in recipe.Ingredients)
+        {
+            if (inventory.Contains(ingredient.Item) < ingredient.Count)
+                return false;
+        }
+        return true;
+    }
+
+    public int RecipeCraftCount(CraftingRecipe recipe, Inventory inventory)
+    {
+        int count = Int32.MaxValue;
+        foreach (var ingredient in recipe.Ingredients)
+        {
+            int canCraft = inventory.Contains(ingredient.Item) / ingredient.Count;
+            count = Mathf.Min(count, canCraft);
+
+        }
+        return count;
+    }
+    
+    public IEnumerator<CraftingRecipe> GetAvailableRecipes(Inventory inventory)
+    {
+        List<CraftingRecipe> recipes = new List<CraftingRecipe>();
+        foreach (var recipe in _recipes)
+        {
+            if(CanCraftRecipe(recipe,inventory))
+                recipes.Add(recipe);
+        }
+        
+        return recipes.GetEnumerator();
     }
 }

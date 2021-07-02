@@ -13,7 +13,7 @@ public class Inventory
     public event EventHandler OnItemChanged;
     
     private int _capacity;
-    private int _itemsCount = 0;
+    //private int _itemsCount = 0;
 
     private readonly int DEFAULT_STACK_SIZE;
     
@@ -112,6 +112,18 @@ public class Inventory
         return _itemSlots[index].item;
     }
 
+    public int Contains(Item item)
+    {
+        int count = 0;
+        foreach (var slot in _itemSlots)
+        {
+            if (slot.item == item)
+                count += slot.count;
+        }
+
+        return count;
+    }
+    
     public void ChangeCapacity(int delta)
     {
         if (_capacity + delta <= 0)

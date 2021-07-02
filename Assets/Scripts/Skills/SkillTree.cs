@@ -16,7 +16,7 @@ public struct SkillTreeSlot
 public class SkillTree : ScriptableObject
 {
 
-    public string name;
+    public string _name;
     public Image icon;
     public List<SkillTreeSlot> slots;
 }
