@@ -11,7 +11,6 @@ public enum CastingMode
     Instant,
     Charging,
     Chanelling,
-    Holding
 }
 
 [CreateAssetMenu(fileName = "New Spell", menuName = "Spells/BasicSpell")]
@@ -27,8 +26,9 @@ public abstract class Spell : ScriptableObject
     public float ManaCost;
     public float Cooldown;
     public CastingMode CastingMode;
+    public float CastringModeParameter;
 
-    public abstract void Cast(Vector3 direction, Vector3 position);
+    public abstract void Cast(Vector3 direction, Vector3 position,float power = 1f);
 
 
 }

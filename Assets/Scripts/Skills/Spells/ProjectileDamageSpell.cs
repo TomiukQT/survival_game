@@ -13,8 +13,9 @@ public class ProjectileDamageSpell : Spell
     
     public List<Effect> EffectsToApply;
 
-    public override void Cast(Vector3 position, Vector3 direction)
+    public override void Cast(Vector3 position, Vector3 direction, float power = 1f)
     {
+        
         GameObject projectile = Instantiate(ToSpawn, position, Quaternion.identity);
         projectile.GetComponent<Bullet>()?.Setup(direction,Damage);
     }

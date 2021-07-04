@@ -51,9 +51,50 @@ public class PlayerCombat : MonoBehaviour
         Vector3 direction = CalculateDirection();
 
         //get type of shooting
-        toCast.Cast(_attackPoint.position,direction);
+        if (toCast.CastingMode == CastingMode.Instant)
+        {
+            if (!_player.Mana.TryTake(toCast.ManaCost))
+                return;
+            toCast.Cast(_attackPoint.position,direction);
+        }
+        else if (toCast.CastingMode == CastingMode.Chanelling)
+        {
+            StartCoroutine(SpellChannelling(toCast,direction));
+        }
+        else if (toCast.CastingMode == CastingMode.Charging)
+        {
+            if (!_player.Mana.TryTake(toCast.ManaCost))
+                return;
+            StartCoroutine(SpellCharging(toCast, direction));
+        }
         //shoot projectile
         
+    }
+
+    
+    
+    private IEnumerator SpellChannelling(Spell spell, Vector3 direction)
+    {
+        float castingRate = spell.CastringModeParameter;
+        while (_player.Mana.TryTake(spell.ManaCost/castingRate))
+        {
+            spell.Cast(_attackPoint.position,direction);
+            yield return new WaitForSeconds(1f/castingRate);
+        }
+    }
+
+    private IEnumerator SpellCharging(Spell spell, Vector3 direction)
+    {
+        float secondsToCharge = spell.CastringModeParameter;
+        float charge = 0f;
+        while (Input.GetButton("Fire1"))
+        {
+            charge += .1f;
+            if(charge >= secondsToCharge)
+                break;
+            yield return new WaitForSeconds(.1f);
+        }
+        spell.Cast(_attackPoint.position,direction,Mathf.Clamp01(charge/secondsToCharge));
     }
 
     private Vector3 CalculateDirection()
@@ -75,7 +116,9 @@ public class PlayerCombat : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
             UseSpell();
-        
+        if(Input.GetButtonUp("Fire1"))
+            StopCoroutine("SpellChannelling");
+
     }
     
     
