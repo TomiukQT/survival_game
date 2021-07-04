@@ -22,6 +22,7 @@ public class PlayerCombat : MonoBehaviour
 
     private Camera _camera;
     
+    [SerializeField] private Spell toCast;
     private void Awake()
     {
         _playerStats = GetComponent<PlayerStats>();
@@ -30,7 +31,8 @@ public class PlayerCombat : MonoBehaviour
         _playerSkills = GetComponent<PlayerSkills>();
 
         _camera = transform.Find("player_camera").GetComponent<Camera>();
-
+        
+        toCast = _playerSkills.GetSpell();
     }
 
     private void Update()
@@ -38,15 +40,8 @@ public class PlayerCombat : MonoBehaviour
         CheckInput();
     }
 
-    private void UseSpell()
+    private void UseSpell(Spell toCast)
     {
-        Spell toCast = _playerSkills.GetSpell();
-       
-        //get cost and try to take resources
-        if (!_player.Mana.TryTake(toCast.ManaCost))
-            return;
-        
-        
         //Calculate direction
         Vector3 direction = CalculateDirection();
 
@@ -76,7 +71,7 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator SpellChannelling(Spell spell, Vector3 direction)
     {
         float castingRate = spell.CastringModeParameter;
-        while (_player.Mana.TryTake(spell.ManaCost/castingRate))
+        while (_player.Mana.TryTake(spell.ManaCost/castingRate) && Input.GetButton("Fire1"))
         {
             spell.Cast(_attackPoint.position,direction);
             yield return new WaitForSeconds(1f/castingRate);
@@ -111,13 +106,20 @@ public class PlayerCombat : MonoBehaviour
         Vector3 direction = (targetPoint - _attackPoint.position).normalized;
         return direction;
     }
+
     
     private void CheckInput()
     {
-        if(Input.GetButtonDown("Fire1"))
-            UseSpell();
-        if(Input.GetButtonUp("Fire1"))
-            StopCoroutine("SpellChannelling");
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            toCast = _playerSkills.GetSpell(0);  
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            toCast = _playerSkills.GetSpell(1);  
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            toCast = _playerSkills.GetSpell(2);
+
+        if (Input.GetButtonDown("Fire1") && toCast != null)
+            UseSpell(toCast);
 
     }
     

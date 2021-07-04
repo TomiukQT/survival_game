@@ -6,6 +6,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
+public class OnSpellDropEventArgs : EventArgs
+{
+    public Spell DroppedSpell;
+    public int Index;
+}
+
 public class UI_SkillBarSlot : MonoBehaviour, IDropHandler
 {
     private Image _image;
@@ -14,6 +20,9 @@ public class UI_SkillBarSlot : MonoBehaviour, IDropHandler
     private TextMeshProUGUI _cooldownText;
 
     private float _cooldown;
+
+    public event EventHandler<OnSpellDropEventArgs> OnSpellDrop;
+    private int _index;
     
     private void Awake()
     {
@@ -22,6 +31,8 @@ public class UI_SkillBarSlot : MonoBehaviour, IDropHandler
         Transform filler = transform.Find("cooldown_filler");
         _cooldownFiller = filler.GetComponent<Image>();
         _cooldownText = filler.GetComponentInChildren<TextMeshProUGUI>();
+
+        _index = transform.GetSiblingIndex();
     }
 
     private void Start()
@@ -31,13 +42,14 @@ public class UI_SkillBarSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop");
+        //Debug.Log("OnDrop");
         //Debug.Log(eventData.pointerDrag);
 
         Spell spell = eventData.pointerDrag.GetComponent<UI_SkillButton>().Spell;
         _image.sprite = spell.Icon;
-        Debug.Log($"Spell {spell.Name} was dropped to slot {gameObject}");
-        OnSpellCast(spell.Cooldown);
+        OnSpellDrop?.Invoke(this, new OnSpellDropEventArgs(){DroppedSpell = spell, Index = _index});
+        //Debug.Log($"Spell {spell.Name} was dropped to slot {gameObject}");
+        //OnSpellCast(spell.Cooldown);
     }
 
     

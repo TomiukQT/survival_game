@@ -21,6 +21,8 @@ public class UI_SkillButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void Awake()
     {
         _canvas = GameObject.Find("UI").GetComponent<Canvas>();
+
+        transform.Find("icon").GetComponent<Image>().sprite = _spell.Icon;
     }
 
 
