@@ -13,12 +13,13 @@ public class Resource
     private float _regenPerSec;
     
     public event EventHandler OnResourceChange;
-    
-    public Resource(float maxValue = 100f, string name = "defaultName")
+
+    public Resource(float maxValue = 100f, string name = "defaultName", float regenPerSec = 0f)
     {
         _maxValue = maxValue;
         _value = maxValue;
         _name = name;
+        _regenPerSec = regenPerSec;
     }
 
     public void IncreaseMax(float newMax)
