@@ -15,6 +15,8 @@ public class PlayerItems : MonoBehaviour
     private void Awake()
     {
         _inventory = new Inventory(INVENTORY_CAPACITY);
+
+        _equipment = new Dictionary<EquipSlot, Equipable>();
         InitEquipment();
     }
 
