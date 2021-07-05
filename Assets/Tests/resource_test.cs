@@ -85,7 +85,7 @@ public class resource_test
         bool a = resource.Take(h);
         
         Assert.True(a);
-        Assert.AreEqual(100f,resource.Value);
+        Assert.AreEqual(0f,resource.Value);
         Assert.AreEqual(0f,resource.Percentage01);
         Assert.AreEqual(0f,resource.Percentage);
     }
