@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour,IDamagable
+public class Player : MonoBehaviour,ICharacter
 {
     
     private Resource _health = new Resource(100f, "Health");
