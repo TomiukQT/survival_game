@@ -22,6 +22,8 @@ public class PlayerCombat : MonoBehaviour
 
     private Camera _camera;
     
+    private Dictionary<Spell,float> _spellCooldowns;
+    
     [SerializeField] private Spell toCast;
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class PlayerCombat : MonoBehaviour
         _camera = transform.Find("player_camera").GetComponent<Camera>();
         
         toCast = _playerSkills.GetSpell();
+        _spellCooldowns = new Dictionary<Spell, float>();
     }
 
     private void Update()
@@ -51,6 +54,7 @@ public class PlayerCombat : MonoBehaviour
             if (!_player.Mana.TryTake(toCast.ManaCost))
                 return;
             toCast.Cast(_attackPoint.position,direction);
+            StartCoroutine(StartCooldown(toCast));
         }
         else if (toCast.CastingMode == CastingMode.Chanelling)
         {
@@ -76,6 +80,7 @@ public class PlayerCombat : MonoBehaviour
             spell.Cast(_attackPoint.position,direction);
             yield return new WaitForSeconds(1f/castingRate);
         }
+        StartCoroutine(StartCooldown(toCast));
     }
 
     private IEnumerator SpellCharging(Spell spell, Vector3 direction)
@@ -90,6 +95,7 @@ public class PlayerCombat : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
         spell.Cast(_attackPoint.position,direction,Mathf.Clamp01(charge/secondsToCharge));
+        StartCoroutine(StartCooldown(toCast));
     }
 
     private Vector3 CalculateDirection()
@@ -118,9 +124,25 @@ public class PlayerCombat : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
             toCast = _playerSkills.GetSpell(2);
 
-        if (Input.GetButtonDown("Fire1") && toCast != null)
+        if (Input.GetButtonDown("Fire1") && toCast != null && !IsOnCooldown(toCast))
             UseSpell(toCast);
 
+    }
+
+    private IEnumerator StartCooldown(Spell spell)
+    {
+        float currCooldown = spell.Cooldown;
+        while (currCooldown > 0f)
+        {
+            yield return new WaitForSeconds(.1f);
+            currCooldown -= .1f;
+            _spellCooldowns[spell] = currCooldown;
+        }
+    }
+    
+    private bool IsOnCooldown(Spell spell)
+    {
+        return _spellCooldowns.ContainsKey(spell) || _spellCooldowns[spell] <= 0f;
     }
     
     

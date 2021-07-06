@@ -15,7 +15,7 @@ public class PlayerSkills : MonoBehaviour
 
 
     private Spell[] _spellBar;
-    private const int SPELL_BAR_SIZE = 10;
+    public const int SPELL_BAR_SIZE = 10;
     
     //TEMP
     //[SerializeField] private GameObject _bulletPrefab;
@@ -28,6 +28,7 @@ public class PlayerSkills : MonoBehaviour
     {
         _unlockedSkills = new HashSet<Spell>();
         _spellBar = new Spell[SPELL_BAR_SIZE];
+        
     }
 
     public Spell SetSpellToBar(Spell spell, int index)
@@ -39,8 +40,7 @@ public class PlayerSkills : MonoBehaviour
         return currSpell;
     }
 
-    public Spell GetSpell(int index) => index < 0 || index >= SPELL_BAR_SIZE ? null : _spellBar[index]; 
-    
+    public Spell GetSpell(int index) => index < 0 || index >= SPELL_BAR_SIZE ? null : _spellBar[index];
     public void UnlockSkill(Spell spell)
     {
         if (!CheckDependencies(spell))
