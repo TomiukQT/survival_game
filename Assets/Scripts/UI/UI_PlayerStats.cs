@@ -43,13 +43,13 @@ public class UI_PlayerStats : MonoBehaviour
    private void e_OnHealthChange(object sender, EventArgs e)
    {
       _healthBar.fillAmount = _health.Percentage01;
-      _healthBarText.text = _health.Value + " / "  + _health.MaxValue;
+      _healthBarText.text = $"{_health.Value:F1}/{_health.MaxValue:F1}";
    }
    
    private void e_OnManaChange(object sender, EventArgs e)
    {
       _manaBar.fillAmount = _mana.Percentage01;
-      _manaBarText.text = _mana.Value + " / " + _mana.MaxValue;
+      _manaBarText.text =  $"{_mana.Value:F1}/{_mana.MaxValue:F1}";
    }
    
 }
