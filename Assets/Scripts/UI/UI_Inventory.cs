@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class UI_Inventory : MonoBehaviour,IShowable
+public class UI_Inventory : MonoBehaviour, IShowable
 {
 
     [SerializeField] private PlayerItems _playerItems;
@@ -13,13 +13,12 @@ public class UI_Inventory : MonoBehaviour,IShowable
 
     [SerializeField] private GameObject _panel;
 
-    private Vector3 _initialPosition;
+    [SerializeField] private Vector3 _initialPosition;
     
     private void Awake()
     {
         InitInventorySlots();
-
-        _initialPosition = transform.position;
+        //_initialPosition = transform.position;
 
     }
     
