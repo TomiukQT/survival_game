@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
+
+//Maybe useful in UI
+//public class OnResourceChangeEventArgs : EventArgs
+//{
+//    public bool IsRegenerating;
+//}
 
 [System.Serializable]
 public class Resource
@@ -11,6 +18,7 @@ public class Resource
     private float _value;
 
     private float _regenPerSec;
+    private bool _isRegenerating = false;
     
     public event EventHandler OnResourceChange;
 
@@ -48,6 +56,7 @@ public class Resource
         if (amount <= 0f)
             amount = 0f;
         _value = Mathf.Max(_value - amount, 0f);
+        StartRegen();
         OnResourceChange?.Invoke(this, new EventArgs());
         return _value <= 0f;
     }
@@ -64,20 +73,31 @@ public class Resource
             return false;
         if (amount > _value)
             return false;
-        _value = Mathf.Max(_value - amount, 0f);
-        OnResourceChange?.Invoke(this, new EventArgs());
+        Take(amount);
         return true;
     }
 
-    private readonly int REGEN_TIMES_PER_SEC = 2;
-    private IEnumerator Regen()
+    private void StartRegen()
     {
+        if (!_isRegenerating && _value != _maxValue)
+#pragma warning disable 4014
+            Regen();
+#pragma warning restore 4014
+    }
+    
+
+    private readonly int REGEN_TIMES_PER_SEC = 2;
+    private async Task Regen()
+    {
+        _isRegenerating = true;
         while (_value < _maxValue && _regenPerSec > 0f)
         {
+            await Task.Delay((int)((1f/REGEN_TIMES_PER_SEC) * 1000f));
             float toAdd = _regenPerSec / REGEN_TIMES_PER_SEC;
             Add(toAdd);
-            yield return new WaitForSeconds(1f/REGEN_TIMES_PER_SEC);
         }
+
+        _isRegenerating = false;
     }
     
     public float MaxValue => _maxValue;
