@@ -6,7 +6,7 @@ public class Player : MonoBehaviour,ICharacter
 {
     
     private Resource _health = new Resource(100f, "Health");
-    private Resource _mana = new Resource(100f, "Mana");
+    private Resource _mana = new Resource(100f, "Mana", 1f);
 
     private PlayerMovement _playerMovement;
 

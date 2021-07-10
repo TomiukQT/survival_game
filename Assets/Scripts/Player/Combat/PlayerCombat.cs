@@ -46,25 +46,27 @@ public class PlayerCombat : MonoBehaviour
     private void UseSpell(Spell toCast)
     {
         //Calculate direction
-        Vector3 direction = CalculateDirection();
+        
 
         //get type of shooting
         if (toCast.CastingMode == CastingMode.Instant)
         {
             if (!_player.Mana.TryTake(toCast.ManaCost))
                 return;
+            Vector3 direction = CalculateDirection();
             toCast.Cast(_attackPoint.position,direction);
-            StartCoroutine(StartCooldown(toCast));
+            if(toCast.Cooldown > 0f)
+                StartCoroutine(StartCooldown(toCast));
         }
         else if (toCast.CastingMode == CastingMode.Chanelling)
         {
-            StartCoroutine(SpellChannelling(toCast,direction));
+            StartCoroutine(SpellChannelling(toCast));
         }
         else if (toCast.CastingMode == CastingMode.Charging)
         {
             if (!_player.Mana.TryTake(toCast.ManaCost))
                 return;
-            StartCoroutine(SpellCharging(toCast, direction));
+            StartCoroutine(SpellCharging(toCast));
         }
         //shoot projectile
         
@@ -72,18 +74,20 @@ public class PlayerCombat : MonoBehaviour
 
     
     
-    private IEnumerator SpellChannelling(Spell spell, Vector3 direction)
+    private IEnumerator SpellChannelling(Spell spell)
     {
         float castingRate = spell.CastringModeParameter;
         while (_player.Mana.TryTake(spell.ManaCost/castingRate) && Input.GetButton("Fire1"))
         {
+            Vector3 direction = CalculateDirection();
             spell.Cast(_attackPoint.position,direction);
             yield return new WaitForSeconds(1f/castingRate);
         }
-        StartCoroutine(StartCooldown(toCast));
+        if(spell.Cooldown > 0f)
+            StartCoroutine(StartCooldown(spell));
     }
 
-    private IEnumerator SpellCharging(Spell spell, Vector3 direction)
+    private IEnumerator SpellCharging(Spell spell)
     {
         float secondsToCharge = spell.CastringModeParameter;
         float charge = 0f;
@@ -94,8 +98,10 @@ public class PlayerCombat : MonoBehaviour
                 break;
             yield return new WaitForSeconds(.1f);
         }
+        Vector3 direction = CalculateDirection();
         spell.Cast(_attackPoint.position,direction,Mathf.Clamp01(charge/secondsToCharge));
-        StartCoroutine(StartCooldown(toCast));
+        if(spell.Cooldown > 0f)
+            StartCoroutine(StartCooldown(spell));
     }
 
     private Vector3 CalculateDirection()
@@ -132,18 +138,22 @@ public class PlayerCombat : MonoBehaviour
     private IEnumerator StartCooldown(Spell spell)
     {
         float currCooldown = spell.Cooldown;
+        _spellCooldowns[spell] = currCooldown;
+        Debug.Log($"Starting cooldown {currCooldown} of spell: {spell.Name}");
         while (currCooldown > 0f)
         {
-            yield return new WaitForSeconds(.1f);
-            currCooldown -= .1f;
+            yield return new WaitForSeconds(0.1f);
+            currCooldown -= 0.1f;
             _spellCooldowns[spell] = currCooldown;
         }
+        Debug.Log($"Ending cooldown {currCooldown} of spell: {spell.Name}");
     }
     
     private bool IsOnCooldown(Spell spell)
     {
-        return _spellCooldowns.ContainsKey(spell) || _spellCooldowns[spell] <= 0f;
+        return _spellCooldowns.ContainsKey(spell) && _spellCooldowns[spell] > 0f;
     }
     
     
 }
+ 
