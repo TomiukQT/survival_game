@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -186,6 +187,18 @@ public class Inventory
 
     public int Capacity => _capacity;
 
+    public IEnumerable<ItemSlot> ItemSlots => _itemSlots;
 
+    public void LoadInventory(IEnumerable<ItemSlot> loadedData)
+    {
+        if (loadedData.Count() != Capacity)
+            return;
+        List<ItemSlot> itemSlots = loadedData.ToList();
+        for (int i = 0; i < itemSlots.Count(); i++)
+        {
+            _itemSlots[i] = itemSlots[i];
+        }
+        OnItemChanged?.Invoke(this,new EventArgs());
+    }
 
 }

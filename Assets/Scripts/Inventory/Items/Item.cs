@@ -8,7 +8,9 @@ public enum ItemType
     
 }
 
+
 [CreateAssetMenu(fileName = "Item", menuName = "Items/Item")]
+[System.Serializable]
 public class Item : ScriptableObject
 {
     

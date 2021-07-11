@@ -15,9 +15,21 @@ public class PlayerItems : MonoBehaviour
     private void Awake()
     {
         _inventory = new Inventory(INVENTORY_CAPACITY);
-
+        if(SaveSystem.LoadInventory(out IEnumerable<ItemSlot> itemSlots))
+            _inventory.LoadInventory(itemSlots);
+        
         _equipment = new Dictionary<EquipSlot, Equipable>();
         InitEquipment();
+    }
+
+    private void Update()
+    {
+        //TEMP for testing
+        if(Input.GetKeyDown(KeyCode.F9))
+            SaveSystem.SaveInventory(_inventory);
+        if(Input.GetKeyDown(KeyCode.F10) && SaveSystem.LoadInventory(out IEnumerable<ItemSlot> itemSlots))
+            _inventory.LoadInventory(itemSlots);
+            
     }
 
     private void InitEquipment()
