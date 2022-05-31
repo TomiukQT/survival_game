@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using SurvivalGame.UI;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class UI_Inventory : MonoBehaviour, IShowable
     [SerializeField] private GameObject _panel;
 
     [SerializeField] private Vector3 _initialPosition;
+
+    [SerializeField] private UI_EquipBar _equipBar;
     
     private void Awake()
     {
@@ -46,7 +49,8 @@ public class UI_Inventory : MonoBehaviour, IShowable
         //Debug.Log("Updating");
         for (int i = 0; i < _inventory.Capacity; i++)
             _inventorySlots[i].SetItem(_inventory.GetItemWithCount(i, out int count),count);
-        
+        for (int i = 0; i < Constants.EQUIP_BAR_CAPACITY; i++)
+            _equipBar.UpdateEquipSlot(i,_inventory.GetItemWithCount(i, out int count),count);
     }
     
     private void OnInventoryChange(object sender, EventArgs eventArgs)

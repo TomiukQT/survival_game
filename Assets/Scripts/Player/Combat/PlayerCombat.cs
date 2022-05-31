@@ -24,7 +24,6 @@ public class PlayerCombat : MonoBehaviour
     
     private Dictionary<Spell,float> _spellCooldowns;
     
-    [SerializeField] private Spell toCast;
     private void Awake()
     {
         _playerStats = GetComponent<PlayerStats>();
@@ -34,7 +33,6 @@ public class PlayerCombat : MonoBehaviour
 
         _camera = transform.Find("player_camera").GetComponent<Camera>();
         
-        toCast = _playerSkills.GetSpell();
         _spellCooldowns = new Dictionary<Spell, float>();
     }
 
@@ -46,7 +44,8 @@ public class PlayerCombat : MonoBehaviour
     private void UseSpell(Spell toCast)
     {
         //Calculate direction
-        
+        if (IsOnCooldown(toCast))
+            return;
 
         //get type of shooting
         if (toCast.CastingMode == CastingMode.Instant)
@@ -69,7 +68,6 @@ public class PlayerCombat : MonoBehaviour
             StartCoroutine(SpellCharging(toCast));
         }
         //shoot projectile
-        
     }
 
     
@@ -123,15 +121,14 @@ public class PlayerCombat : MonoBehaviour
     private void CheckInput()
     {
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            toCast = _playerSkills.GetSpell(0);  
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            toCast = _playerSkills.GetSpell(1);  
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            toCast = _playerSkills.GetSpell(2);
+        if (Input.GetKey(KeyCode.Q))
+            UseSpell(_playerSkills.GetSpell(0));  
+        if (Input.GetKey(KeyCode.R))
+            UseSpell(_playerSkills.GetSpell(1));  
+        if (Input.GetKey(KeyCode.X))
+            UseSpell(_playerSkills.GetSpell(2));
 
-        if (Input.GetButtonDown("Fire1") && toCast != null && !IsOnCooldown(toCast))
-            UseSpell(toCast);
+
 
     }
 
