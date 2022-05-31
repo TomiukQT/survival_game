@@ -40,7 +40,10 @@ public class UI_Inventory : MonoBehaviour, IShowable
         Transform inventorySlotsParent = _panel.transform.Find("inventory_slots");
         for (int i = 0; i < inventorySlotsParent.childCount; i++)
         {
-            _inventorySlots.Add(inventorySlotsParent.GetChild(i).GetComponent<UI_InventorySlot>());
+            var slot = inventorySlotsParent.GetChild(i).GetComponent<UI_InventorySlot>();
+            _inventorySlots.Add(slot);
+            slot.SlotIndex = i;
+            slot.OnDragAndDrop += e_OnDragAndDrop;
         }
     }
 
@@ -59,9 +62,6 @@ public class UI_Inventory : MonoBehaviour, IShowable
         UpdateInventory();
     }
 
-
-
-
     public void SetActive(bool state)
     {
         if (!state)
@@ -72,4 +72,9 @@ public class UI_Inventory : MonoBehaviour, IShowable
 
     public void Toggle() => SetActive(!(transform.position == _initialPosition));
 
+    private void e_OnDragAndDrop(object sender, OnDragAndDropEventArgs e)
+    {
+        _inventory.SwapItemsOnIndexes(e.From,e.To);
+    }
+    
 }

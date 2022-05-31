@@ -198,7 +198,17 @@ public class Inventory
         {
             _itemSlots[i] = itemSlots[i];
         }
-        OnItemChanged?.Invoke(this,new EventArgs());
+        OnItemChanged?.Invoke(this,EventArgs.Empty);
     }
+
+    public void SwapItemsOnIndexes(int from, int to)
+    {
+        var item1 = _itemSlots[from].item;
+        var item2 = _itemSlots[to].item;
+        //if (item1 == null || item2 == null || item1.Name != item2.Name)
+        (_itemSlots[from], _itemSlots[to]) = (_itemSlots[to], _itemSlots[from]);
+        OnItemChanged?.Invoke(this,EventArgs.Empty);
+    }
+    
 
 }
