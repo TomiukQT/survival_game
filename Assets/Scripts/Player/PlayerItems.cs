@@ -81,11 +81,11 @@ public class PlayerItems : MonoBehaviour
        
     }
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.transform.TryGetComponent(out ItemObject item))
         {
-            if (_inventory.AddItem(item.Item))
+            if (item.IsEnabled && _inventory.AddItem(item.Item))
             {
                 item.OnPickUp();
             }
