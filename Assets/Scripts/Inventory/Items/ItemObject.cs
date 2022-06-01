@@ -5,7 +5,7 @@ public class ItemObject : MonoBehaviour
     
     [SerializeField] private Item _itemData;
     [SerializeField] private int _itemCount;
-    public void SetItem(Item item)
+    public void SetItem(Item item, int count = 1)
     {
         _itemData = item;
     }

@@ -22,15 +22,16 @@ public class Item : ScriptableObject
     
     [SerializeField] private bool _stackable = false;
 
+    [SerializeField] private GameObject _worldObject;
     ///TODO
     //Icon
     //Rarity?
-    //GameModel
     
     public bool IsStackable => _stackable;
     public string Name => _name;
     public string Description => _description;
     public Sprite Icon => _icon;
+    public GameObject WorldObject => _worldObject;
     
     //For testing only.
     public Item(){}

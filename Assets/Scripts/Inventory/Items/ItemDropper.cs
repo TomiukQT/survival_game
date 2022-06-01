@@ -8,14 +8,16 @@ namespace SurvivalGame.Inventory.Items
 		public static void DropItemsOnPosition(List<(Item,int)> itemsToDrop,Vector3 position)
 		{
 			// TODO Change item dropping for multiple items ??? remove break
-			Debug.Log($"Spawning {itemsToDrop.Count} items at {position}");
 			foreach (var itemPair in itemsToDrop)
 			{
 				var item = itemPair.Item1;
-				var spawnedItem = Instantiate(new GameObject($"Item{item.Name}"), position, Quaternion.identity);
-				spawnedItem.AddComponent(typeof(ItemObject)).GetComponent<ItemObject>().SetItem(item);
-				// spawnedItem.model = item.model;
+				var count = itemPair.Item2;
+				var spawnedItem = Instantiate(item.WorldObject, position, Quaternion.identity);
 				
+				if (!spawnedItem.TryGetComponent<ItemObject>(out var itemObject))
+					itemObject = spawnedItem.AddComponent<ItemObject>().GetComponent<ItemObject>();
+				itemObject.SetItem(item,count);
+				//spawnedItem.AddComponent(typeof(MeshCollider));
 				break;
 			}
 		}
