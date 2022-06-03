@@ -26,8 +26,8 @@ public class PlayerItems : MonoBehaviour
     private void Awake()
     {
         _inventory = new Inventory(Constants.INVENTORY_CAPACITY);
-        //TODO if(SaveSystem.LoadInventory(out IEnumerable<ItemSlot> itemSlots))
-            //_inventory.LoadInventory(itemSlots);}}
+        if(SaveSystem.LoadInventory(out IEnumerable<ItemSlot> itemSlots))
+            _inventory.LoadInventory(itemSlots);
         
         _equipment = new Dictionary<EquipSlot, Equipable>();
         //_equipBar = new Dictionary<int, Item>();

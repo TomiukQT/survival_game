@@ -9,7 +9,7 @@ public static class SaveSystem
     public static void SaveInventory(Inventory inventory)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        string path = Path.Combine(Application.persistentDataPath + "/invetory.save");
+        string path = Path.Combine(Application.persistentDataPath + "/inventory.save");
         FileStream stream = new FileStream(path, FileMode.Create);
         
         formatter.Serialize(stream,inventory.ItemSlots);
@@ -18,7 +18,7 @@ public static class SaveSystem
 
     public static bool LoadInventory(out IEnumerable<ItemSlot> itemSlots)
     {
-        string path = Path.Combine(Application.persistentDataPath + "/invetory.save");
+        string path = Path.Combine(Application.persistentDataPath + "/inventory.save");
         Debug.Log(path);
         itemSlots = null;
         if (!File.Exists(path))

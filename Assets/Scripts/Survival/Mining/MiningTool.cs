@@ -5,6 +5,7 @@ using UnityEngine;
 namespace SurvivalGame.Survival.Mining
 {
     [CreateAssetMenu(fileName = "miningTool", menuName = "Items/MiningTool")]
+    [System.Serializable]
     public class MiningTool : UsableItem
     {
         [SerializeField] private MiningToolType _miningToolType;
